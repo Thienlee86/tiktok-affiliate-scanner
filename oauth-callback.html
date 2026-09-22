@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TikTok Shop Authorization</title>
+<style>body{font-family:system-ui;margin:0;background:#f5f6f8;color:#171717}.box{max-width:620px;margin:48px auto;padding:24px;background:white;border-radius:18px;box-shadow:0 4px 20px #0001}h1{font-size:24px}.ok{color:#087f5b}.err{color:#c92a2a}code{word-break:break-all}</style></head>
+<body><main class="box"><h1>TikTok Shop Authorization</h1><div id="status">Đang nhận phản hồi ủy quyền…</div></main>
+<script>
+const p=new URLSearchParams(location.search), el=document.getElementById('status');
+const code=p.get('code'), err=p.get('error')||p.get('error_description');
+if(err){el.className='err';el.textContent='Ủy quyền chưa hoàn tất: '+err;}
+else if(code){sessionStorage.setItem('tts_auth_code',code);el.className='ok';el.innerHTML='<b>✓ Đã nhận mã ủy quyền.</b><p>Bạn có thể quay lại Affiliate Scanner. Mã chỉ được giữ tạm trong phiên trình duyệt và chưa được đổi thành access token trên trang này.</p>';}
+else{el.textContent='Trang callback đã hoạt động. Chưa có mã ủy quyền trong URL.';}
+</script></body></html>
