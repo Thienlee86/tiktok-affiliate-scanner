@@ -1,0 +1,3 @@
+import test from "node:test";import assert from "node:assert/strict";import {runScanner} from "../src/pipeline.js";
+test("no source access produces truthful empty run",async()=>{const r=await runScanner({sourceAccess:false});assert.equal(r.report.creator_center_scanned,false);assert.equal(r.candidates.length,0);});
+test("authorized run discovers and selects candidate",async()=>{const searchFn=async()=>[{id:"p1",title:"P",units_sold:100,commission:20,commission_rate:10,has_inventory:true}];const r=await runScanner({sourceAccess:true,searchFn});assert.equal(r.report.creator_center_scanned,true);assert.equal(r.candidates.length,1);assert.equal(r.experiment.id,"p1");assert.equal(r.snapshots.length,1);});
