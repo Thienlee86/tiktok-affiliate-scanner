@@ -1,0 +1,2 @@
+import test from "node:test";import assert from "node:assert/strict";import {buildAlerts} from "../src/alerts.js";
+test("alerts only on confirmed revenue movement",()=>{const a=buildAlerts({health:{status:"ready"},revenue:{net_revenue:100,confirmed_orders:1},previousRevenue:{net_revenue:0,confirmed_orders:0}});assert.ok(a.some(x=>x.code==="REVENUE_INCREASE"));assert.ok(a.some(x=>x.code==="NEW_CONFIRMED_ORDER"));});
