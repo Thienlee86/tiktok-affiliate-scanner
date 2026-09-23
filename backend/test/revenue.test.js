@@ -1,0 +1,4 @@
+import test from "node:test";import assert from "node:assert/strict";import {summarizeRevenue,revenueByProduct} from "../src/revenue.js";
+test("counts only confirmed commission",()=>{const s=summarizeRevenue([{type:"click"},{type:"order",status:"confirmed"},{type:"commission",status:"pending",amount:99},{type:"commission",status:"confirmed",amount:20}]);assert.equal(s.commission,20);assert.equal(s.conversion_rate,1);});
+test("subtracts approved cashback from net revenue",()=>{const s=summarizeRevenue([{type:"commission",status:"confirmed",amount:50},{type:"cashback",status:"approved",amount:15}]);assert.equal(s.net_revenue,35);});
+test("ranks products by real net revenue",()=>{const r=revenueByProduct([{product_id:"a",type:"commission",status:"confirmed",amount:10},{product_id:"b",type:"commission",status:"confirmed",amount:30}]);assert.equal(r[0].product_id,"b");});
