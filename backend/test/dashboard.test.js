@@ -1,0 +1,2 @@
+import test from "node:test";import assert from "node:assert/strict";import {buildDashboard} from "../src/dashboard.js";
+test("dashboard distinguishes confirmed scan and revenue",()=>{const d=buildDashboard({run:{report:{creator_center_scanned:false,products_seen:0},candidates:[]},revenueSummary:{commission:100,cashback:20,net_revenue:80,confirmed_orders:1}});assert.equal(d.scan.confirmed,false);assert.equal(d.revenue.net_revenue,80);});
